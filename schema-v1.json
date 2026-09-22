@@ -1,0 +1,1292 @@
+{
+  "doc": "Mapped schema from F_STANDARD_SELECTION",
+  "fields": [
+    {
+      "aliases": [
+        "c0"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CONTRACT_BAL_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c1"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CURRENCY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c2"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "TYPE_SYSDATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c3"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "VALUE_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c4"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "MAT_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c5"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "OPEN_BALANCE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c6"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "OPEN_BAL_LCL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c7"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CREDIT_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c8"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CR_MVMT_LCL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c9"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "DEBIT_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c10"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "DB_MVMT_LCL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c11"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "NAU_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c12"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "NAU_TXN_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c13"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CURR_ASSET_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c14"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CONSOL_KEY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c15"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "OPEN_ASSET_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c16"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CO_CODE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c17"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "POSS_SIGN_CHANGE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c18"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "NS_UPDATE_INDICATOR",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c19"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "APPLICATION",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c20"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "PRODUCT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c21"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "DATE_LAST_UPDATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c22"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CUSTOMER",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c23"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "INTEREST_RATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c24"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "INTEREST_KEY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c25"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "INTEREST_BASIS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c26"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "INTEREST_SPREAD",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c27"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "REPORT_ITEM",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c28"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "REPORT_VALUE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c29"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "PREV_CONSOL_KEY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c30"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "PREV_ASSET_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c31"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CONTRACT_VALUE_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c32"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "BALANCE_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c33"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACTIVITY_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c34"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "LAST_CAP_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c35"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "STMT_ENT_IDS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c36"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "STMT_SPLIT_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c37"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CONSOL_ENT_IDS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c38"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CONSOL_SPLIT_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c39"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CATEG_ENT_IDS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c40"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CATEG_SPLIT_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c41"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_CATEGORY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c42"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_CRF_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c43"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_BOOKING_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c44"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_TRANS_CODE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c45"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_SYSTEM_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c46"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_AMOUNT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c47"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_AMOUNT_LCY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c48"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_OPP_AMOUNT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c49"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_EXRATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c50"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_NAU_AMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c51"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_NAU_AMT_LCY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c52"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_NAU_OPP_AMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c53"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACCR_NAU_EXRATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c54"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ACTIVITY_MONTHS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c55"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "BAL_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c56"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "BT_ACT_MONTHS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c57"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "COLLAT_RIGHT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c58"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "COLLATERAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c59"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "STMT_PROC_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c60"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "NO_OF_STMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c61"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "RISK_LIMIT_REF",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c62"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "RISK_COLL_RGT_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c63"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "RISK_COLL_ID",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c64"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "COLL_CCY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c65"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "ALLOC_AMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c66"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CATEG_PROCESS_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c67"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CATEG_ENTRY_IDS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c68"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "OPEN_ACTUAL_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c69"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "OPEN_CLEARED_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c70"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "ONLINE_ACTUAL_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c71"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "ONLINE_CLEARED_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c72"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "WORKING_BALANCE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c73"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "OPEN_AVAILABLE_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c74"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AVAILABLE_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c75"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AV_AUTH_DB_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c76"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AV_NAU_DB_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c77"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AV_AUTH_CR_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c78"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AV_NAU_CR_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c79"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AVAILABLE_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c80"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "FORWARD_MVMTS",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c81"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "FIRST_AF_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c82"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "NEXT_AF_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c83"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "NEXT_EXP_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c84"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "EXPOSURE_DATES",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c85"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "INITIATOR_TYPE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c86"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "DATE_LAST",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c87"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "AMNT_LAST",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c88"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "TRANS_LAST",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c89"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "LAST_AC_BAL_UPD",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c90"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "BALANCE_MOVED",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c94"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "TOT_UNAUTH_CR",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c95"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "TOT_UNAUTH_DB",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c96"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "TOT_FWD_UNAU_CR",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c97"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "TOT_FWD_UNAU_DB",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c98"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "UNAUTH_KEY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c99"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "FWD_UNAUTH_KEY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c100"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "HVT_FLAG",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c106"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "END_OF_REC_CRF",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c102"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "ACCOUNTING_COMPANY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c101"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "LAST_UPDATE_TIME",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c91"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "AUTH_PAY_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c92"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "AUTH_RECEIVE_MVMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c93"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "TRADE_DATED_GL_BAL",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c103"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "CCY_LIST",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c104"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "FROM_DATE",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c105"
+      ],
+      "default": null,
+      "doc": "M",
+      "name": "LOCKED_AMT",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ],
+  "name": "EB_CONTRACT_BALANCES",
+  "namespace": "vn.bnh.parser",
+  "type": "record"
+}
