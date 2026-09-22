@@ -1,5 +1,5 @@
 {
-  "name": "R25_FBNK_EB_C005_EXPLODED",
+  "name": "DD_R25_FBNK_EB_C005_EXPLODED",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
     "tasks.max": "10",
@@ -10,8 +10,8 @@
     "errors.tolerance": "none",
     "errors.log.enable": "true",
     "errors.log.include.messages": "true",
-    "topics": "R25.FBNK_EB_C005_EXPLODED",
-    "errors.deadletterqueue.topic.name": "R25.SINK_ERROR",
+    "topics": "DD_R25.FBNK_EB_C005_EXPLODED",
+    "errors.deadletterqueue.topic.name": "DD_R25.SINK_ERROR",
     "errors.deadletterqueue.topic.replication.factor": "1",
     "errors.deadletterqueue.context.headers.enable": "true",
     "connection.url": "jdbc:oracle:thin:@10.38.91.7:1521/t24pdb",
@@ -20,7 +20,7 @@
     "connection.attempts": "1",
     "connection.backoff.ms": "10000",
     "insert.mode": "upsert",
-    "table.name.format": "CONFLUENT.R25_FBNK_EB_C005_EXPLODED",
+    "table.name.format": "CONFLUENT.DD_R25_FBNK_EB_C005_EXPLODED",
     "pk.mode": "record_value",
     "pk.fields": "RECID, ASSET_TYPE",
     "auto.create": "true",
