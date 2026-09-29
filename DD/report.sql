@@ -1,16 +1,10 @@
--- ============================================================
--- DROP OBJECTS
--- ============================================================
-
 DROP PROCEDURE CONFLUENT.P_COMPARE_DD_R18_DD_R25_FBNK_EB_C005;
 DROP VIEW CONFLUENT.V_DD_R18_DD_R25_FBNK_EB_C005_DIFF;
 DROP TABLE CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF CASCADE CONSTRAINTS PURGE;
 DROP TABLE CONFLUENT.DD_R18_FBNK_EB_C005_EXPLODED CASCADE CONSTRAINTS PURGE;
 DROP TABLE CONFLUENT.DD_R25_FBNK_EB_C005_EXPLODED CASCADE CONSTRAINTS PURGE;
 
--- ============================================================
--- DD_R18 EXPLODED
--- ============================================================
+-- CONFLUENT.DD_R18_FBNK_EB_C005_EXPLODED
 
 CREATE TABLE CONFLUENT.DD_R18_FBNK_EB_C005_EXPLODED (
     RECID            VARCHAR2(255) NOT NULL,
@@ -30,9 +24,7 @@ CREATE TABLE CONFLUENT.DD_R18_FBNK_EB_C005_EXPLODED (
     CONSTRAINT PK_DD_R18_FBNK_EB_C005_EXPLODED PRIMARY KEY (RECID, ASSET_TYPE)
 );
 
--- ============================================================
--- DD_R25 EXPLODED
--- ============================================================
+-- CONFLUENT.DD_R25_FBNK_EB_C005_EXPLODED
 
 CREATE TABLE CONFLUENT.DD_R25_FBNK_EB_C005_EXPLODED (
     RECID            VARCHAR2(255) NOT NULL,
@@ -52,9 +44,7 @@ CREATE TABLE CONFLUENT.DD_R25_FBNK_EB_C005_EXPLODED (
     CONSTRAINT PK_DD_R25_FBNK_EB_C005_EXPLODED PRIMARY KEY (RECID, ASSET_TYPE)
 );
 
--- ============================================================
--- DIFF VIEW
--- ============================================================
+-- CONFLUENT.V_DD_R18_DD_R25_FBNK_EB_C005_DIFF
 
 CREATE OR REPLACE VIEW CONFLUENT.V_DD_R18_DD_R25_FBNK_EB_C005_DIFF AS
 SELECT
@@ -120,9 +110,7 @@ WHERE r18.RECID IS NULL
    OR DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1
    OR DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1;
 
--- ============================================================
--- CREATE CURRENT SNAPSHOT (ONE-TIME SETUP)
--- ============================================================
+-- CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF
 
 CREATE TABLE CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF AS
 SELECT
@@ -150,12 +138,6 @@ SELECT
     DIFF_CLOSE_BAL
 FROM CONFLUENT.V_DD_R18_DD_R25_FBNK_EB_C005_DIFF
 WHERE 1 = 0;
-
--- ============================================================
--- REFRESH CURRENT SNAPSHOT PROCEDURE
--- ============================================================
--- Call from a dedicated reconciliation session: COMMIT also commits caller changes.
--- The shared snapshot is replaced on every successful call; it is not session-local.
 
 CREATE OR REPLACE PROCEDURE CONFLUENT.P_COMPARE_DD_R18_DD_R25_FBNK_EB_C005
 AS
@@ -222,25 +204,17 @@ EXCEPTION
 END;
 /
 
--- ============================================================
--- EXECUTE (RUN FOR EACH COMPARISON)
--- ============================================================
-
 BEGIN
     CONFLUENT.P_COMPARE_DD_R18_DD_R25_FBNK_EB_C005;
 END;
 /
 
--- ============================================================
--- COUNT CURRENT DIFF
--- ============================================================
+-- CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF
 
 SELECT /*+ PARALLEL(16) */ COUNT(*)
 FROM CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF;
 
--- ============================================================
--- SELECT CURRENT DIFF
--- ============================================================
+-- CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF
 
 SELECT /*+ PARALLEL(16) */ *
 FROM CONFLUENT.DD_R18_DD_R25_FBNK_EB_C005_DIFF

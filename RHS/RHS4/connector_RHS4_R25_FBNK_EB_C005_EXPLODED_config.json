@@ -1,5 +1,5 @@
 {
-  "name": "DD_R25_FBNK_EB_C005_EXPLODED",
+  "name": "RHS4_R25_FBNK_EB_C005_EXPLODED",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
     "tasks.max": "8",
@@ -10,8 +10,8 @@
     "errors.tolerance": "none",
     "errors.log.enable": "true",
     "errors.log.include.messages": "true",
-    "topics": "DD_R25.FBNK_EB_C005_EXPLODED",
-    "errors.deadletterqueue.topic.name": "DD_R25.SINK_ERROR",
+    "topics": "RHS4_R25.FBNK_EB_C005_EXPLODED",
+    "errors.deadletterqueue.topic.name": "RHS4_R25.SINK_ERROR",
     "errors.deadletterqueue.topic.replication.factor": "1",
     "errors.deadletterqueue.context.headers.enable": "true",
     "connection.url": "jdbc:oracle:thin:@tcps://odb-core-rehearsal-scan.techcombank.com.vn:2484/ecbvldpdb.client.tp1az1a.oraclevcn.com?wallet_location=/u01/kafka-connect/wallet/cwallet.sso&ssl_server_dn_match=false",
@@ -20,7 +20,7 @@
     "connection.attempts": "1",
     "connection.backoff.ms": "10000",
     "insert.mode": "upsert",
-    "table.name.format": "CONFLUENT.DD_R25_FBNK_EB_C005_EXPLODED",
+    "table.name.format": "CONFLUENT.RHS_R25_FBNK_EB_C005_EXPLODED",
     "pk.mode": "record_value",
     "pk.fields": "RECID, ASSET_TYPE",
     "auto.create": "true",

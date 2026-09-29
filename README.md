@@ -1,0 +1,11 @@
+# Reconciliation deployment
+
+1. Run `F_STANDARD_SELECTION.sql` **once** to create the shared R18/R25 source and parsed streams for both DD and RHS. Its DROP statements recreate the parsed topics; do not rerun it between batches. The shared input topics are `R18.F_STANDARD_SELECTION` and `R25.F_STANDARD_SELECTION`.
+2. Run `DD/R18.SS_EB_CONTRACT_BALANCES.sql` and `DD/R25.SS_EB_CONTRACT_BALANCES.sql` for DD. Run `DD/report.sql` to recreate the Oracle tables **before** deploying the matching connectors in `DD/`. The report script also calls the comparison procedure; run the procedure again once the sinks have caught up.
+3. For each RHS batch, run both SQL files (`R18.SS_EB_CONTRACT_BALANCES.sql` and `R25.SS_EB_CONTRACT_BALANCES.sql`) under `RHS/RHS1/` through `RHS/RHS4/` and deploy their matching connectors. Only Kafka topics/stream names and connector names carry the batch number (`RHS1_R18` … `RHS4_R25`). All RHS batches sink into the same `CONFLUENT.RHS_R18_FBNK_EB_C005_EXPLODED` and `CONFLUENT.RHS_R25_FBNK_EB_C005_EXPLODED` tables. Use `RHS/report.sql` for each batch; it drops and recreates the DB tables and report objects, so run it **before** starting that batch's sinks, only after stopping the previous batch's connectors. Do not run multiple RHS batches against the shared tables at the same time.
+
+Before running any DD/RHS ksqlDB pipeline, replace `<SCHEMA_ID>` in **each** `PARSE_T24_RECORD` call with the numeric schema ID of `EB_CONTRACT_BALANCES` in the target environment (R18 and R25 may differ). The placeholder is intentionally not executable SQL. Confirm the hard-coded `20261003` used by `EXPLODE_ASSET_BALANCES` matches the intended reconciliation date.
+
+The report scripts DROP existing Oracle objects without an existence check; on first deployment, handle the expected missing-object errors or run only the CREATE section. Their final procedure invocation runs before the sinks have populated newly created tables. Each report compares only `OPEN_BAL`, `DR_MVT`, `CR_MVT`, `CLOSE_BAL` and row presence, not metadata fields.
+
+The connectors contain database credentials as requested: restrict access to these files and rotate the password if it is exposed. The Oracle wallet must exist at the configured path on every Kafka Connect worker.

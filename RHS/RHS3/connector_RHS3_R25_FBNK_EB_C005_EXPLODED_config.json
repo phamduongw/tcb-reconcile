@@ -1,8 +1,8 @@
 {
-  "name": "RHS_R25_FBNK_EB_C005_EXPLODED",
+  "name": "RHS3_R25_FBNK_EB_C005_EXPLODED",
   "config": {
     "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
-    "tasks.max": "10",
+    "tasks.max": "8",
     "key.converter": "io.confluent.connect.avro.AvroConverter",
     "value.converter": "io.confluent.connect.avro.AvroConverter",
     "errors.retry.timeout": "10000",
@@ -10,13 +10,13 @@
     "errors.tolerance": "none",
     "errors.log.enable": "true",
     "errors.log.include.messages": "true",
-    "topics": "RHS_R25.FBNK_EB_C005_EXPLODED",
-    "errors.deadletterqueue.topic.name": "RHS_R25.SINK_ERROR",
+    "topics": "RHS3_R25.FBNK_EB_C005_EXPLODED",
+    "errors.deadletterqueue.topic.name": "RHS3_R25.SINK_ERROR",
     "errors.deadletterqueue.topic.replication.factor": "1",
     "errors.deadletterqueue.context.headers.enable": "true",
-    "connection.url": "jdbc:oracle:thin:@10.38.91.7:1521/t24pdb",
-    "connection.user": "BNH",
-    "connection.password": "<SET_DATABASE_PASSWORD_BEFORE_DEPLOYMENT>",
+    "connection.url": "jdbc:oracle:thin:@tcps://odb-core-rehearsal-scan.techcombank.com.vn:2484/ecbvldpdb.client.tp1az1a.oraclevcn.com?wallet_location=/u01/kafka-connect/wallet/cwallet.sso&ssl_server_dn_match=false",
+    "connection.user": "CONFLUENT",
+    "connection.password": "BNHvietnam#2026",
     "connection.attempts": "1",
     "connection.backoff.ms": "10000",
     "insert.mode": "upsert",
@@ -27,7 +27,7 @@
     "auto.evolve": "false",
     "max.retries": "1",
     "retry.backoff.ms": "10000",
-    "value.converter.schema.registry.url": "http://10.38.91.15:8081",
-    "key.converter.schema.registry.url": "http://10.38.91.15:8081"
+    "value.converter.schema.registry.url": "http://10.35.222.247:8081",
+    "key.converter.schema.registry.url": "http://10.35.222.247:8081"
   }
 }
