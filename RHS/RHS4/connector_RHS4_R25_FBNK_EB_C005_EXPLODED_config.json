@@ -20,7 +20,7 @@
     "connection.attempts": "1",
     "connection.backoff.ms": "10000",
     "insert.mode": "upsert",
-    "table.name.format": "CONFLUENT.RHS_R25_FBNK_EB_C005_EXPLODED",
+    "table.name.format": "CONFLUENT.RHS4_R25_FBNK_EB_C005_EXPLODED",
     "pk.mode": "record_value",
     "pk.fields": "RECID, ASSET_TYPE",
     "auto.create": "true",
