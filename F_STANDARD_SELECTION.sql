@@ -1,7 +1,7 @@
+SET 'auto.offset.reset' = 'earliest';
+
 -- Run once before the DDAY and RHS stream scripts. Both sides share these two
 -- source topics and their parsed streams; do not drop them between RHS batches.
-
-SET 'auto.offset.reset' = 'earliest';
 
 -- ============================================================
 -- DROP TABLE/STREAM
