@@ -1,11 +1,20 @@
 -- Run once before the DDAY and RHS stream scripts. Both sides share these two
 -- source topics and their parsed streams; do not drop them between RHS batches.
+
 SET 'auto.offset.reset' = 'earliest';
+
+-- ============================================================
+-- DROP TABLE/STREAM
+-- ============================================================
 
 DROP STREAM IF EXISTS R18_F_STANDARD_SELECTION_PARSED DELETE TOPIC;
 DROP STREAM IF EXISTS R18_F_STANDARD_SELECTION;
 DROP STREAM IF EXISTS R25_F_STANDARD_SELECTION_PARSED DELETE TOPIC;
 DROP STREAM IF EXISTS R25_F_STANDARD_SELECTION;
+
+-- ============================================================
+-- R18_F_STANDARD_SELECTION
+-- ============================================================
 
 CREATE OR REPLACE STREAM R18_F_STANDARD_SELECTION (
     RECID      STRING,
@@ -17,6 +26,10 @@ CREATE OR REPLACE STREAM R18_F_STANDARD_SELECTION (
     KAFKA_TOPIC = 'R18.F_STANDARD_SELECTION',
     FORMAT      = 'AVRO'
 );
+
+-- ============================================================
+-- R18_F_STANDARD_SELECTION_PARSED
+-- ============================================================
 
 CREATE OR REPLACE STREAM R18_F_STANDARD_SELECTION_PARSED
 WITH (
@@ -32,6 +45,10 @@ SELECT
 FROM R18_F_STANDARD_SELECTION
 EMIT CHANGES;
 
+-- ============================================================
+-- R25_F_STANDARD_SELECTION
+-- ============================================================
+
 CREATE OR REPLACE STREAM R25_F_STANDARD_SELECTION (
     RECID      STRING,
     OP_TYPE    STRING,
@@ -42,6 +59,10 @@ CREATE OR REPLACE STREAM R25_F_STANDARD_SELECTION (
     KAFKA_TOPIC = 'R25.F_STANDARD_SELECTION',
     FORMAT      = 'AVRO'
 );
+
+-- ============================================================
+-- R25_F_STANDARD_SELECTION_PARSED
+-- ============================================================
 
 CREATE OR REPLACE STREAM R25_F_STANDARD_SELECTION_PARSED
 WITH (
