@@ -23,7 +23,7 @@
     "table.name.format": "CONFLUENT.RHS4_R25_FBNK_EB_C005_DEBUG",
     "pk.mode": "record_value",
     "pk.fields": "RECID",
-    "auto.create": "true",
+    "auto.create": "false",
     "auto.evolve": "false",
     "max.retries": "1",
     "retry.backoff.ms": "10000",
