@@ -3,7 +3,6 @@
 -- ============================================================
 
 DROP PROCEDURE CONFLUENT.P_COMPARE_RHS1_R18_R25_FBNK_EB_C005;
-DROP VIEW CONFLUENT.V_RHS1_R18_R25_FBNK_EB_C005_DIFF;
 DROP VIEW CONFLUENT.V_RHS1_R18_FBNK_EB_C005_EXPLODED;
 DROP VIEW CONFLUENT.V_RHS1_R25_FBNK_EB_C005_EXPLODED;
 DROP TABLE CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF CASCADE CONSTRAINTS PURGE;
@@ -87,101 +86,33 @@ JOIN (
 ) m ON t.RECID = m.RECID AND t.COMMIT_TS = m.MAX_COMMIT_TS;
 
 -- ============================================================
--- CONFLUENT.V_RHS1_R18_R25_FBNK_EB_C005_DIFF
--- ============================================================
-
-CREATE OR REPLACE VIEW CONFLUENT.V_RHS1_R18_R25_FBNK_EB_C005_DIFF AS
-SELECT
-    COALESCE(r18.RECID, r25.RECID)           AS RECID,
-    COALESCE(r18.ASSET_TYPE, r25.ASSET_TYPE) AS ASSET_TYPE,
-    CASE
-        WHEN r18.RECID IS NULL THEN
-            CASE
-                WHEN NOT EXISTS (
-                    SELECT 1
-                    FROM CONFLUENT.V_RHS1_R18_FBNK_EB_C005_EXPLODED x
-                    WHERE x.RECID = r25.RECID
-                ) THEN 'MISSING_RECID_IN_RHS1_R18'
-                ELSE 'MISSING_ASSET_TYPE_IN_RHS1_R18'
-            END
-        WHEN r25.RECID IS NULL THEN
-            CASE
-                WHEN NOT EXISTS (
-                    SELECT 1
-                    FROM CONFLUENT.V_RHS1_R25_FBNK_EB_C005_EXPLODED x
-                    WHERE x.RECID = r18.RECID
-                ) THEN 'MISSING_RECID_IN_RHS1_R25'
-                ELSE 'MISSING_ASSET_TYPE_IN_RHS1_R25'
-            END
-        ELSE 'VALUE_MISMATCH'
-    END AS DIFF_TYPE,
-    CASE
-        WHEN r18.RECID IS NULL OR r25.RECID IS NULL THEN NULL
-        ELSE RTRIM(
-               CASE WHEN DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1 THEN 'OPEN_BAL, '  END
-            || CASE WHEN DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1 THEN 'DR_MVT, '    END
-            || CASE WHEN DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1 THEN 'CR_MVT, '    END
-            || CASE WHEN DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1 THEN 'CLOSE_BAL, ' END,
-            ', '
-        )
-    END                           AS DIFF_COLUMNS,
-    r18.APPLICATION               AS RHS1_R18_APPLICATION,
-    r25.APPLICATION               AS RHS1_R25_APPLICATION,
-    r18.CUSTOMER                  AS RHS1_R18_CUSTOMER,
-    r25.CUSTOMER                  AS RHS1_R25_CUSTOMER,
-    r18.DATE_LAST_UPDATE          AS RHS1_R18_DATE_LAST_UPDATE,
-    r25.DATE_LAST_UPDATE          AS RHS1_R25_DATE_LAST_UPDATE,
-    r18.OPEN_BAL                  AS RHS1_R18_OPEN_BAL,
-    r25.OPEN_BAL                  AS RHS1_R25_OPEN_BAL,
-    r18.DR_MVT                    AS RHS1_R18_DR_MVT,
-    r25.DR_MVT                    AS RHS1_R25_DR_MVT,
-    r18.CR_MVT                    AS RHS1_R18_CR_MVT,
-    r25.CR_MVT                    AS RHS1_R25_CR_MVT,
-    r18.CLOSE_BAL                 AS RHS1_R18_CLOSE_BAL,
-    r25.CLOSE_BAL                 AS RHS1_R25_CLOSE_BAL,
-    r25.OPEN_BAL - r18.OPEN_BAL   AS DIFF_OPEN_BAL,
-    r25.DR_MVT - r18.DR_MVT       AS DIFF_DR_MVT,
-    r25.CR_MVT - r18.CR_MVT       AS DIFF_CR_MVT,
-    r25.CLOSE_BAL - r18.CLOSE_BAL AS DIFF_CLOSE_BAL
-FROM CONFLUENT.V_RHS1_R18_FBNK_EB_C005_EXPLODED r18
-FULL OUTER JOIN CONFLUENT.V_RHS1_R25_FBNK_EB_C005_EXPLODED r25 ON r18.RECID = r25.RECID AND r18.ASSET_TYPE = r25.ASSET_TYPE
-WHERE r18.RECID IS NULL
-   OR r25.RECID IS NULL
-   OR DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1
-   OR DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1
-   OR DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1
-   OR DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1;
-
--- ============================================================
 -- CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF
 -- ============================================================
 
-CREATE TABLE CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF AS
-SELECT
-    RECID,
-    ASSET_TYPE,
-    DIFF_TYPE,
-    DIFF_COLUMNS,
-    RHS1_R18_APPLICATION,
-    RHS1_R25_APPLICATION,
-    RHS1_R18_CUSTOMER,
-    RHS1_R25_CUSTOMER,
-    RHS1_R18_DATE_LAST_UPDATE,
-    RHS1_R25_DATE_LAST_UPDATE,
-    RHS1_R18_OPEN_BAL,
-    RHS1_R25_OPEN_BAL,
-    RHS1_R18_DR_MVT,
-    RHS1_R25_DR_MVT,
-    RHS1_R18_CR_MVT,
-    RHS1_R25_CR_MVT,
-    RHS1_R18_CLOSE_BAL,
-    RHS1_R25_CLOSE_BAL,
-    DIFF_OPEN_BAL,
-    DIFF_DR_MVT,
-    DIFF_CR_MVT,
-    DIFF_CLOSE_BAL
-FROM CONFLUENT.V_RHS1_R18_R25_FBNK_EB_C005_DIFF
-WHERE 1 = 0;
+CREATE TABLE CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF (
+    RECID                     VARCHAR2(255),
+    ASSET_TYPE                VARCHAR2(255),
+    DIFF_TYPE                 VARCHAR2(30),
+    DIFF_COLUMNS              VARCHAR2(37),
+    RHS1_R18_APPLICATION      VARCHAR2(128),
+    RHS1_R25_APPLICATION      VARCHAR2(128),
+    RHS1_R18_CUSTOMER         VARCHAR2(255),
+    RHS1_R25_CUSTOMER         VARCHAR2(255),
+    RHS1_R18_DATE_LAST_UPDATE VARCHAR2(8),
+    RHS1_R25_DATE_LAST_UPDATE VARCHAR2(8),
+    RHS1_R18_OPEN_BAL         NUMBER(38,4),
+    RHS1_R25_OPEN_BAL         NUMBER(38,4),
+    RHS1_R18_DR_MVT           NUMBER(38,4),
+    RHS1_R25_DR_MVT           NUMBER(38,4),
+    RHS1_R18_CR_MVT           NUMBER(38,4),
+    RHS1_R25_CR_MVT           NUMBER(38,4),
+    RHS1_R18_CLOSE_BAL        NUMBER(38,4),
+    RHS1_R25_CLOSE_BAL        NUMBER(38,4),
+    DIFF_OPEN_BAL             NUMBER,
+    DIFF_DR_MVT               NUMBER,
+    DIFF_CR_MVT               NUMBER,
+    DIFF_CLOSE_BAL            NUMBER
+);
 
 -- ============================================================
 -- CONFLUENT.P_COMPARE_RHS1_R18_R25_FBNK_EB_C005
@@ -220,29 +151,65 @@ BEGIN
         DIFF_CLOSE_BAL
     )
     SELECT /*+ PARALLEL(8) */
-        RECID,
-        ASSET_TYPE,
-        DIFF_TYPE,
-        DIFF_COLUMNS,
-        RHS1_R18_APPLICATION,
-        RHS1_R25_APPLICATION,
-        RHS1_R18_CUSTOMER,
-        RHS1_R25_CUSTOMER,
-        RHS1_R18_DATE_LAST_UPDATE,
-        RHS1_R25_DATE_LAST_UPDATE,
-        RHS1_R18_OPEN_BAL,
-        RHS1_R25_OPEN_BAL,
-        RHS1_R18_DR_MVT,
-        RHS1_R25_DR_MVT,
-        RHS1_R18_CR_MVT,
-        RHS1_R25_CR_MVT,
-        RHS1_R18_CLOSE_BAL,
-        RHS1_R25_CLOSE_BAL,
-        DIFF_OPEN_BAL,
-        DIFF_DR_MVT,
-        DIFF_CR_MVT,
-        DIFF_CLOSE_BAL
-    FROM CONFLUENT.V_RHS1_R18_R25_FBNK_EB_C005_DIFF;
+        COALESCE(r18.RECID, r25.RECID)           AS RECID,
+        COALESCE(r18.ASSET_TYPE, r25.ASSET_TYPE) AS ASSET_TYPE,
+        CASE
+            WHEN r18.RECID IS NULL THEN
+                CASE
+                    WHEN NOT EXISTS (
+                        SELECT 1
+                        FROM CONFLUENT.V_RHS1_R18_FBNK_EB_C005_EXPLODED x
+                        WHERE x.RECID = r25.RECID
+                    ) THEN 'MISSING_RECID_IN_RHS1_R18'
+                    ELSE 'MISSING_ASSET_TYPE_IN_RHS1_R18'
+                END
+            WHEN r25.RECID IS NULL THEN
+                CASE
+                    WHEN NOT EXISTS (
+                        SELECT 1
+                        FROM CONFLUENT.V_RHS1_R25_FBNK_EB_C005_EXPLODED x
+                        WHERE x.RECID = r18.RECID
+                    ) THEN 'MISSING_RECID_IN_RHS1_R25'
+                    ELSE 'MISSING_ASSET_TYPE_IN_RHS1_R25'
+                END
+            ELSE 'VALUE_MISMATCH'
+        END AS DIFF_TYPE,
+        CASE
+            WHEN r18.RECID IS NULL OR r25.RECID IS NULL THEN NULL
+            ELSE RTRIM(
+                   CASE WHEN DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1 THEN 'OPEN_BAL, '  END
+                || CASE WHEN DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1 THEN 'DR_MVT, '    END
+                || CASE WHEN DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1 THEN 'CR_MVT, '    END
+                || CASE WHEN DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1 THEN 'CLOSE_BAL, ' END,
+                ', '
+            )
+        END                           AS DIFF_COLUMNS,
+        r18.APPLICATION               AS RHS1_R18_APPLICATION,
+        r25.APPLICATION               AS RHS1_R25_APPLICATION,
+        r18.CUSTOMER                  AS RHS1_R18_CUSTOMER,
+        r25.CUSTOMER                  AS RHS1_R25_CUSTOMER,
+        r18.DATE_LAST_UPDATE          AS RHS1_R18_DATE_LAST_UPDATE,
+        r25.DATE_LAST_UPDATE          AS RHS1_R25_DATE_LAST_UPDATE,
+        r18.OPEN_BAL                  AS RHS1_R18_OPEN_BAL,
+        r25.OPEN_BAL                  AS RHS1_R25_OPEN_BAL,
+        r18.DR_MVT                    AS RHS1_R18_DR_MVT,
+        r25.DR_MVT                    AS RHS1_R25_DR_MVT,
+        r18.CR_MVT                    AS RHS1_R18_CR_MVT,
+        r25.CR_MVT                    AS RHS1_R25_CR_MVT,
+        r18.CLOSE_BAL                 AS RHS1_R18_CLOSE_BAL,
+        r25.CLOSE_BAL                 AS RHS1_R25_CLOSE_BAL,
+        r25.OPEN_BAL - r18.OPEN_BAL   AS DIFF_OPEN_BAL,
+        r25.DR_MVT - r18.DR_MVT       AS DIFF_DR_MVT,
+        r25.CR_MVT - r18.CR_MVT       AS DIFF_CR_MVT,
+        r25.CLOSE_BAL - r18.CLOSE_BAL AS DIFF_CLOSE_BAL
+    FROM CONFLUENT.V_RHS1_R18_FBNK_EB_C005_EXPLODED r18
+    FULL OUTER JOIN CONFLUENT.V_RHS1_R25_FBNK_EB_C005_EXPLODED r25 ON r18.RECID = r25.RECID AND r18.ASSET_TYPE = r25.ASSET_TYPE
+    WHERE r18.RECID IS NULL
+       OR r25.RECID IS NULL
+       OR DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1
+       OR DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1
+       OR DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1
+       OR DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1;
 
     COMMIT;
 EXCEPTION
@@ -259,6 +226,9 @@ BEGIN
     CONFLUENT.P_COMPARE_RHS1_R18_R25_FBNK_EB_C005;
 END;
 
+SELECT /*+ PARALLEL(8) */ COUNT(*)
+FROM CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF;
+
 -- ============================================================
 -- COUNT
 -- ============================================================
@@ -268,9 +238,6 @@ FROM CONFLUENT.RHS1_R18_FBNK_EB_C005_EXPLODED t;
 
 SELECT /*+ PARALLEL(8) INDEX_FFS(t) */ COUNT(*)
 FROM CONFLUENT.RHS1_R25_FBNK_EB_C005_EXPLODED t;
-
-SELECT /*+ PARALLEL(8) */ COUNT(*)
-FROM CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF;
 
 -- ============================================================
 -- INSPECT
@@ -285,5 +252,5 @@ FROM CONFLUENT.V_RHS1_R25_FBNK_EB_C005_EXPLODED
 WHERE RECID = '';
 
 SELECT /*+ PARALLEL(8) */ *
-FROM CONFLUENT.V_RHS1_R18_R25_FBNK_EB_C005_DIFF
+FROM CONFLUENT.RHS1_R18_R25_FBNK_EB_C005_DIFF
 WHERE RECID = '';
