@@ -1,4 +1,5 @@
 SET 'auto.offset.reset' = 'earliest';
+SET 'ksql.streams.num.stream.threads' = '8';
 
 -- Run once before the DDAY and RHS stream scripts. Both sides share these two
 -- source topics and their parsed streams; do not drop them between RHS batches.

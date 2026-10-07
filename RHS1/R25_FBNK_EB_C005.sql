@@ -1,6 +1,5 @@
 SET 'auto.offset.reset' = 'earliest';
-
--- Run F_STANDARD_SELECTION.sql once separately; do not drop shared streams per batch.
+SET 'ksql.streams.num.stream.threads' = '8';
 
 -- ============================================================
 -- DROP TABLE/STREAM
@@ -9,7 +8,6 @@ SET 'auto.offset.reset' = 'earliest';
 DROP STREAM IF EXISTS RHS1_R25_FBNK_EB_C005_EXPLODED DELETE TOPIC;
 DROP STREAM IF EXISTS RHS1_R25_FBNK_EB_C005_MAPPED DELETE TOPIC;
 DROP STREAM IF EXISTS RHS1_R25_FBNK_EB_C005_PARSED DELETE TOPIC;
-DROP STREAM IF EXISTS RHS1_R25_FBNK_EB_C005_QUICKCHECK DELETE TOPIC;
 DROP STREAM IF EXISTS RHS1_R25_FBNK_EB_C005;
 
 -- ============================================================
@@ -26,25 +24,6 @@ CREATE OR REPLACE STREAM RHS1_R25_FBNK_EB_C005 (
     KAFKA_TOPIC = 'RHS1_R25.FBNK_EB_C005',
     FORMAT      = 'AVRO'
 );
-
--- ============================================================
--- RHS1_R25_FBNK_EB_C005_QUICKCHECK
--- ============================================================
-
-CREATE OR REPLACE STREAM RHS1_R25_FBNK_EB_C005_QUICKCHECK
-WITH (
-    KAFKA_TOPIC = 'RHS1_R25.FBNK_EB_C005_QUICKCHECK'
-) AS
-SELECT
-    ROWKEY,
-    RECID,
-    OP_TYPE,
-    OP_TS,
-    CURRENT_TS,
-    XMLRECORD
-FROM RHS1_R25_FBNK_EB_C005
-WHERE XMLRECORD = '' OR XMLRECORD IS NULL
-EMIT CHANGES;
 
 -- ============================================================
 -- RHS1_R25_FBNK_EB_C005_PARSED
