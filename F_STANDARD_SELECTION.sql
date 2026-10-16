@@ -1,8 +1,9 @@
 SET 'auto.offset.reset' = 'earliest';
 SET 'ksql.streams.num.stream.threads' = '8';
 
--- Run once before the DDAY and RHS stream scripts. Both sides share these two
--- source topics and their parsed streams; do not drop them between RHS batches.
+-- Run once if schema discovery/registration is required for DDAY and RHS.
+-- Business streams use fixed schema ID 6226, not these parsed streams directly.
+-- Do not recreate this branch between groups; verify the target registry ID.
 
 -- ============================================================
 -- DROP TABLE/STREAM
