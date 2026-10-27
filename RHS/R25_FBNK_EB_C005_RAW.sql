@@ -43,6 +43,7 @@ SELECT
     OP_TYPE,
     OP_TS,
     CURRENT_TS,
+    PARSE_TIMESTAMP(OP_TS, 'yyyy-MM-dd HH:mm:ss.SSSSSS') AS COMMIT_TS,
     POS,
     SCN,
     XID,
