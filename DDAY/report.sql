@@ -1,4 +1,12 @@
 -- ============================================================
+-- CPU
+-- ============================================================
+
+SELECT VALUE
+FROM V$PARAMETER
+WHERE NAME = 'cpu_count';
+
+-- ============================================================
 -- DROP OBJECTS
 -- ============================================================
 
@@ -250,6 +258,14 @@ FROM CONFLUENT.DDAY_R25_FBNK_EB_C005_EXPLODED t;
 -- ============================================================
 -- INSPECT
 -- ============================================================
+
+SELECT /*+ PARALLEL(64) */ *
+FROM CONFLUENT.DDAY_R18_FBNK_EB_C005_EXPLODED
+FETCH FIRST 10 ROWS ONLY;
+
+SELECT /*+ PARALLEL(64) */ *
+FROM CONFLUENT.DDAY_R25_FBNK_EB_C005_EXPLODED
+FETCH FIRST 10 ROWS ONLY;
 
 SELECT /*+ PARALLEL(64) */ *
 FROM (
