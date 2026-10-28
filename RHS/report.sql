@@ -251,13 +251,13 @@ FROM CONFLUENT.RHS_R25_FBNK_EB_C005_EXPLODED t;
 -- INSPECT
 -- ============================================================
 
-SELECT *
+SELECT /*+ PARALLEL(64) */ *
 FROM (
-    SELECT /*+ PARALLEL(64) */ 'R18' AS SIDE, v.*
+    SELECT 'R18' AS SIDE, v.*
     FROM CONFLUENT.V_RHS_R18_FBNK_EB_C005_EXPLODED v
     WHERE v.RECID = ''
     UNION ALL
-    SELECT /*+ PARALLEL(64) */ 'R25' AS SIDE, v.*
+    SELECT 'R25' AS SIDE, v.*
     FROM CONFLUENT.V_RHS_R25_FBNK_EB_C005_EXPLODED v
     WHERE v.RECID = ''
 )
