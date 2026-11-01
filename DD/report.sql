@@ -189,39 +189,16 @@ BEGIN
         DIFF_CLOSE_BAL
     )
     SELECT /*+ PARALLEL(64) */
-        COALESCE(r18.RECID, r25.RECID)           AS RECID,
-        COALESCE(r18.ASSET_TYPE, r25.ASSET_TYPE) AS ASSET_TYPE,
-        CASE
-            WHEN r18.RECID IS NULL THEN
-                CASE
-                    WHEN NOT EXISTS (
-                        SELECT 1
-                        FROM CONFLUENT.V_DD_R18_FBNK_EB_C005_EXPLODED x
-                        WHERE x.RECID = r25.RECID
-                    ) THEN 'MISSING_RECID_IN_DD_R18'
-                    ELSE 'MISSING_ASSET_TYPE_IN_DD_R18'
-                END
-            WHEN r25.RECID IS NULL THEN
-                CASE
-                    WHEN NOT EXISTS (
-                        SELECT 1
-                        FROM CONFLUENT.V_DD_R25_FBNK_EB_C005_EXPLODED x
-                        WHERE x.RECID = r18.RECID
-                    ) THEN 'MISSING_RECID_IN_DD_R25'
-                    ELSE 'MISSING_ASSET_TYPE_IN_DD_R25'
-                END
-            ELSE 'VALUE_MISMATCH'
-        END AS DIFF_TYPE,
-        CASE
-            WHEN r18.RECID IS NULL OR r25.RECID IS NULL THEN NULL
-            ELSE RTRIM(
-                   CASE WHEN DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1 THEN 'OPEN_BAL, '  END
-                || CASE WHEN DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1 THEN 'DR_MVT, '    END
-                || CASE WHEN DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1 THEN 'CR_MVT, '    END
-                || CASE WHEN DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1 THEN 'CLOSE_BAL, ' END,
-                ', '
-            )
-        END                           AS DIFF_COLUMNS,
+        r18.RECID                     AS RECID,
+        r18.ASSET_TYPE                AS ASSET_TYPE,
+        'VALUE_MISMATCH'              AS DIFF_TYPE,
+        RTRIM(
+               CASE WHEN DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1 THEN 'OPEN_BAL, '  END
+            || CASE WHEN DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1 THEN 'DR_MVT, '    END
+            || CASE WHEN DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1 THEN 'CR_MVT, '    END
+            || CASE WHEN DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1 THEN 'CLOSE_BAL, ' END,
+            ', '
+        )                             AS DIFF_COLUMNS,
         r18.APPLICATION               AS DD_R18_APPLICATION,
         r25.APPLICATION               AS DD_R25_APPLICATION,
         r18.CUSTOMER                  AS DD_R18_CUSTOMER,
@@ -243,10 +220,8 @@ BEGIN
         r25.CR_MVT - r18.CR_MVT       AS DIFF_CR_MVT,
         r25.CLOSE_BAL - r18.CLOSE_BAL AS DIFF_CLOSE_BAL
     FROM CONFLUENT.V_DD_R18_FBNK_EB_C005_EXPLODED r18
-    FULL OUTER JOIN CONFLUENT.V_DD_R25_FBNK_EB_C005_EXPLODED r25 ON r18.RECID = r25.RECID AND r18.ASSET_TYPE = r25.ASSET_TYPE
-    WHERE r18.RECID IS NULL
-       OR r25.RECID IS NULL
-       OR DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1
+    INNER JOIN CONFLUENT.V_DD_R25_FBNK_EB_C005_EXPLODED r25 ON r18.RECID = r25.RECID AND r18.ASSET_TYPE = r25.ASSET_TYPE
+    WHERE DECODE(r18.OPEN_BAL,  r25.OPEN_BAL,  0, 1) = 1
        OR DECODE(r18.DR_MVT,    r25.DR_MVT,    0, 1) = 1
        OR DECODE(r18.CR_MVT,    r25.CR_MVT,    0, 1) = 1
        OR DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1) = 1;
