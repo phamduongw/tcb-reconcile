@@ -135,10 +135,6 @@ CREATE TABLE CONFLUENT.RHS_R18_R25_FBNK_EB_C005_DIFF (
     RHS_R25_DATE_LAST_UPDATE VARCHAR2(255),
     RHS_R18_HVT_FLAG         VARCHAR2(255),
     RHS_R25_HVT_FLAG         VARCHAR2(255),
-    DIFF_OPEN_BAL            NUMBER,
-    DIFF_DR_MVT              NUMBER,
-    DIFF_CR_MVT              NUMBER,
-    DIFF_CLOSE_BAL           NUMBER,
     RHS_R18_OPEN_BAL         NUMBER(38,4),
     RHS_R25_OPEN_BAL         NUMBER(38,4),
     RHS_R18_DR_MVT           NUMBER(38,4),
@@ -146,7 +142,11 @@ CREATE TABLE CONFLUENT.RHS_R18_R25_FBNK_EB_C005_DIFF (
     RHS_R18_CR_MVT           NUMBER(38,4),
     RHS_R25_CR_MVT           NUMBER(38,4),
     RHS_R18_CLOSE_BAL        NUMBER(38,4),
-    RHS_R25_CLOSE_BAL        NUMBER(38,4)
+    RHS_R25_CLOSE_BAL        NUMBER(38,4),
+    DIFF_OPEN_BAL            NUMBER,
+    DIFF_DR_MVT              NUMBER,
+    DIFF_CR_MVT              NUMBER,
+    DIFF_CLOSE_BAL           NUMBER
 );
 
 -- ============================================================
@@ -173,10 +173,6 @@ BEGIN
         RHS_R25_DATE_LAST_UPDATE,
         RHS_R18_HVT_FLAG,
         RHS_R25_HVT_FLAG,
-        DIFF_OPEN_BAL,
-        DIFF_DR_MVT,
-        DIFF_CR_MVT,
-        DIFF_CLOSE_BAL,
         RHS_R18_OPEN_BAL,
         RHS_R25_OPEN_BAL,
         RHS_R18_DR_MVT,
@@ -184,7 +180,11 @@ BEGIN
         RHS_R18_CR_MVT,
         RHS_R25_CR_MVT,
         RHS_R18_CLOSE_BAL,
-        RHS_R25_CLOSE_BAL
+        RHS_R25_CLOSE_BAL,
+        DIFF_OPEN_BAL,
+        DIFF_DR_MVT,
+        DIFF_CR_MVT,
+        DIFF_CLOSE_BAL
     )
     SELECT /*+ PARALLEL(64)
                LEADING(R25 R18)
@@ -209,10 +209,6 @@ BEGIN
         r25.DATE_LAST_UPDATE          AS RHS_R25_DATE_LAST_UPDATE,
         r18.HVT_FLAG                  AS RHS_R18_HVT_FLAG,
         r25.HVT_FLAG                  AS RHS_R25_HVT_FLAG,
-        r25.OPEN_BAL - r18.OPEN_BAL   AS DIFF_OPEN_BAL,
-        r25.DR_MVT - r18.DR_MVT       AS DIFF_DR_MVT,
-        r25.CR_MVT - r18.CR_MVT       AS DIFF_CR_MVT,
-        r25.CLOSE_BAL - r18.CLOSE_BAL AS DIFF_CLOSE_BAL,
         r18.OPEN_BAL                  AS RHS_R18_OPEN_BAL,
         r25.OPEN_BAL                  AS RHS_R25_OPEN_BAL,
         r18.DR_MVT                    AS RHS_R18_DR_MVT,
@@ -220,7 +216,11 @@ BEGIN
         r18.CR_MVT                    AS RHS_R18_CR_MVT,
         r25.CR_MVT                    AS RHS_R25_CR_MVT,
         r18.CLOSE_BAL                 AS RHS_R18_CLOSE_BAL,
-        r25.CLOSE_BAL                 AS RHS_R25_CLOSE_BAL
+        r25.CLOSE_BAL                 AS RHS_R25_CLOSE_BAL,
+        r25.OPEN_BAL - r18.OPEN_BAL   AS DIFF_OPEN_BAL,
+        r25.DR_MVT - r18.DR_MVT       AS DIFF_DR_MVT,
+        r25.CR_MVT - r18.CR_MVT       AS DIFF_CR_MVT,
+        r25.CLOSE_BAL - r18.CLOSE_BAL AS DIFF_CLOSE_BAL
     FROM CONFLUENT.V_RHS_R18_FBNK_EB_C005_EXPLODED r18
     INNER JOIN CONFLUENT.V_RHS_R25_FBNK_EB_C005_EXPLODED r25 ON r18.RECID = r25.RECID AND r18.ASSET_TYPE = r25.ASSET_TYPE
     WHERE DECODE(ABS(r25.OPEN_BAL - r18.OPEN_BAL), 1, 0, DECODE(r18.OPEN_BAL, r25.OPEN_BAL, 0, 1)) = 1
