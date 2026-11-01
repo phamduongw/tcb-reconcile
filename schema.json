@@ -6,7 +6,7 @@
         "c2"
       ],
       "default": null,
-      "doc": "M",
+      "doc": "A",
       "name": "TYPE_SYSDATE",
       "type": [
         "null",
@@ -18,7 +18,7 @@
         "c5"
       ],
       "default": null,
-      "doc": "M",
+      "doc": "A",
       "name": "OPEN_BALANCE",
       "type": [
         "null",
@@ -30,7 +30,7 @@
         "c7"
       ],
       "default": null,
-      "doc": "M",
+      "doc": "A",
       "name": "CREDIT_MVMT",
       "type": [
         "null",
@@ -42,7 +42,7 @@
         "c9"
       ],
       "default": null,
-      "doc": "M",
+      "doc": "A",
       "name": "DEBIT_MVMT",
       "type": [
         "null",
@@ -54,7 +54,7 @@
         "c13"
       ],
       "default": null,
-      "doc": "M",
+      "doc": "A",
       "name": "CURR_ASSET_TYPE",
       "type": [
         "null",
@@ -92,6 +92,18 @@
       "default": null,
       "doc": "S",
       "name": "CUSTOMER",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
+        "c100"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "HVT_FLAG",
       "type": [
         "null",
         "string"
