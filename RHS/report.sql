@@ -126,6 +126,7 @@ JOIN (
 CREATE TABLE CONFLUENT.RHS_R18_R25_FBNK_EB_C005_DIFF (
     RECID                    VARCHAR2(255),
     ASSET_TYPE               VARCHAR2(255),
+    DIFF_COLUMNS             VARCHAR2(37),
     RHS_R18_APPLICATION      VARCHAR2(255),
     RHS_R25_APPLICATION      VARCHAR2(255),
     RHS_R18_CUSTOMER         VARCHAR2(255),
@@ -134,7 +135,6 @@ CREATE TABLE CONFLUENT.RHS_R18_R25_FBNK_EB_C005_DIFF (
     RHS_R25_DATE_LAST_UPDATE VARCHAR2(255),
     RHS_R18_HVT_FLAG         VARCHAR2(255),
     RHS_R25_HVT_FLAG         VARCHAR2(255),
-    DIFF_COLUMNS             VARCHAR2(37),
     DIFF_OPEN_BAL            NUMBER,
     DIFF_DR_MVT              NUMBER,
     DIFF_CR_MVT              NUMBER,
@@ -164,6 +164,7 @@ BEGIN
     INSERT INTO CONFLUENT.RHS_R18_R25_FBNK_EB_C005_DIFF (
         RECID,
         ASSET_TYPE,
+        DIFF_COLUMNS,
         RHS_R18_APPLICATION,
         RHS_R25_APPLICATION,
         RHS_R18_CUSTOMER,
@@ -172,7 +173,6 @@ BEGIN
         RHS_R25_DATE_LAST_UPDATE,
         RHS_R18_HVT_FLAG,
         RHS_R25_HVT_FLAG,
-        DIFF_COLUMNS,
         DIFF_OPEN_BAL,
         DIFF_DR_MVT,
         DIFF_CR_MVT,
@@ -194,6 +194,13 @@ BEGIN
                PQ_DISTRIBUTE(R18 HASH HASH) */
         r18.RECID                     AS RECID,
         r18.ASSET_TYPE                AS ASSET_TYPE,
+        RTRIM(
+               CASE WHEN DECODE(ABS(r25.OPEN_BAL - r18.OPEN_BAL), 1, 0, DECODE(r18.OPEN_BAL, r25.OPEN_BAL, 0, 1)) = 1     THEN 'OPEN_BAL, '  END
+            || CASE WHEN DECODE(ABS(r25.DR_MVT - r18.DR_MVT), 1, 0, DECODE(r18.DR_MVT, r25.DR_MVT, 0, 1)) = 1             THEN 'DR_MVT, '    END
+            || CASE WHEN DECODE(ABS(r25.CR_MVT - r18.CR_MVT), 1, 0, DECODE(r18.CR_MVT, r25.CR_MVT, 0, 1)) = 1             THEN 'CR_MVT, '    END
+            || CASE WHEN DECODE(ABS(r25.CLOSE_BAL - r18.CLOSE_BAL), 1, 0, DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1)) = 1 THEN 'CLOSE_BAL, ' END,
+            ', '
+        )                             AS DIFF_COLUMNS,
         r18.APPLICATION               AS RHS_R18_APPLICATION,
         r25.APPLICATION               AS RHS_R25_APPLICATION,
         r18.CUSTOMER                  AS RHS_R18_CUSTOMER,
@@ -202,13 +209,6 @@ BEGIN
         r25.DATE_LAST_UPDATE          AS RHS_R25_DATE_LAST_UPDATE,
         r18.HVT_FLAG                  AS RHS_R18_HVT_FLAG,
         r25.HVT_FLAG                  AS RHS_R25_HVT_FLAG,
-        RTRIM(
-               CASE WHEN DECODE(ABS(r25.OPEN_BAL - r18.OPEN_BAL), 1, 0, DECODE(r18.OPEN_BAL, r25.OPEN_BAL, 0, 1)) = 1     THEN 'OPEN_BAL, '  END
-            || CASE WHEN DECODE(ABS(r25.DR_MVT - r18.DR_MVT), 1, 0, DECODE(r18.DR_MVT, r25.DR_MVT, 0, 1)) = 1             THEN 'DR_MVT, '    END
-            || CASE WHEN DECODE(ABS(r25.CR_MVT - r18.CR_MVT), 1, 0, DECODE(r18.CR_MVT, r25.CR_MVT, 0, 1)) = 1             THEN 'CR_MVT, '    END
-            || CASE WHEN DECODE(ABS(r25.CLOSE_BAL - r18.CLOSE_BAL), 1, 0, DECODE(r18.CLOSE_BAL, r25.CLOSE_BAL, 0, 1)) = 1 THEN 'CLOSE_BAL, ' END,
-            ', '
-        )                             AS DIFF_COLUMNS,
         r25.OPEN_BAL - r18.OPEN_BAL   AS DIFF_OPEN_BAL,
         r25.DR_MVT - r18.DR_MVT       AS DIFF_DR_MVT,
         r25.CR_MVT - r18.CR_MVT       AS DIFF_CR_MVT,
