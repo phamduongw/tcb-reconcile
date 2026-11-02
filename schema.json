@@ -3,6 +3,18 @@
   "fields": [
     {
       "aliases": [
+        "c1"
+      ],
+      "default": null,
+      "doc": "S",
+      "name": "CURRENCY",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "aliases": [
         "c2"
       ],
       "default": null,
