@@ -195,48 +195,48 @@ BEGIN
         DIFF_CLOSE_BAL
     )
     SELECT /*+ PARALLEL(64) */
-        c.RECID                         AS RECID,
-        c.ASSET_TYPE                    AS ASSET_TYPE,
+        c.RECID                           AS RECID,
+        c.ASSET_TYPE                      AS ASSET_TYPE,
         RTRIM(
                CASE WHEN DECODE(c.R18_OPEN_BAL, c.R25_OPEN_BAL, 0, CASE WHEN ABS(c.R25_OPEN_BAL - c.R18_OPEN_BAL) <= c.DIFF_THRESHOLD THEN 0 ELSE 1 END) = 1 THEN 'OPEN_BAL, ' END
             || CASE WHEN DECODE(c.R18_DR_MVT, c.R25_DR_MVT, 0, CASE WHEN ABS(c.R25_DR_MVT - c.R18_DR_MVT) <= c.DIFF_THRESHOLD THEN 0 ELSE 1 END) = 1 THEN 'DR_MVT, ' END
             || CASE WHEN DECODE(c.R18_CR_MVT, c.R25_CR_MVT, 0, CASE WHEN ABS(c.R25_CR_MVT - c.R18_CR_MVT) <= c.DIFF_THRESHOLD THEN 0 ELSE 1 END) = 1 THEN 'CR_MVT, ' END
             || CASE WHEN DECODE(c.R18_CLOSE_BAL, c.R25_CLOSE_BAL, 0, CASE WHEN ABS(c.R25_CLOSE_BAL - c.R18_CLOSE_BAL) <= c.DIFF_THRESHOLD THEN 0 ELSE 1 END) = 1 THEN 'CLOSE_BAL, ' END,
             ', '
-        )                               AS DIFF_COLUMNS,
+        ) AS DIFF_COLUMNS,
         CASE
             WHEN c.R18_RECID_COUNT = 0 THEN 'MISSING_RECID_IN_R18'
             WHEN c.R25_RECID_COUNT = 0 THEN 'MISSING_RECID_IN_R25'
             WHEN c.MISSING_SIDE = 'R18' THEN 'MISSING_ASSET_TYPE_IN_R18'
             WHEN c.MISSING_SIDE = 'R25' THEN 'MISSING_ASSET_TYPE_IN_R25'
             ELSE 'VALUE_MISMATCH'
-        END                             AS DIFF_TYPE,
-        c.R18_CURRENCY                  AS R18_CURRENCY,
-        c.R25_CURRENCY                  AS R25_CURRENCY,
-        c.R18_APPLICATION               AS R18_APPLICATION,
-        c.R25_APPLICATION               AS R25_APPLICATION,
-        c.R18_CUSTOMER                  AS R18_CUSTOMER,
-        c.R25_CUSTOMER                  AS R25_CUSTOMER,
-        c.R18_DATE_LAST_UPDATE          AS R18_DATE_LAST_UPDATE,
-        c.R25_DATE_LAST_UPDATE          AS R25_DATE_LAST_UPDATE,
-        c.R18_HVT_FLAG                  AS R18_HVT_FLAG,
-        c.R25_HVT_FLAG                  AS R25_HVT_FLAG,
-        c.R18_OPEN_BAL                  AS R18_OPEN_BAL,
-        c.R25_OPEN_BAL                  AS R25_OPEN_BAL,
-        c.R18_DR_MVT                    AS R18_DR_MVT,
-        c.R25_DR_MVT                    AS R25_DR_MVT,
-        c.R18_CR_MVT                    AS R18_CR_MVT,
-        c.R25_CR_MVT                    AS R25_CR_MVT,
-        c.R18_CLOSE_BAL                 AS R18_CLOSE_BAL,
-        c.R25_CLOSE_BAL                 AS R25_CLOSE_BAL,
+        END AS DIFF_TYPE,
+        c.R18_CURRENCY                    AS R18_CURRENCY,
+        c.R25_CURRENCY                    AS R25_CURRENCY,
+        c.R18_APPLICATION                 AS R18_APPLICATION,
+        c.R25_APPLICATION                 AS R25_APPLICATION,
+        c.R18_CUSTOMER                    AS R18_CUSTOMER,
+        c.R25_CUSTOMER                    AS R25_CUSTOMER,
+        c.R18_DATE_LAST_UPDATE            AS R18_DATE_LAST_UPDATE,
+        c.R25_DATE_LAST_UPDATE            AS R25_DATE_LAST_UPDATE,
+        c.R18_HVT_FLAG                    AS R18_HVT_FLAG,
+        c.R25_HVT_FLAG                    AS R25_HVT_FLAG,
+        c.R18_OPEN_BAL                    AS R18_OPEN_BAL,
+        c.R25_OPEN_BAL                    AS R25_OPEN_BAL,
+        c.R18_DR_MVT                      AS R18_DR_MVT,
+        c.R25_DR_MVT                      AS R25_DR_MVT,
+        c.R18_CR_MVT                      AS R18_CR_MVT,
+        c.R25_CR_MVT                      AS R25_CR_MVT,
+        c.R18_CLOSE_BAL                   AS R18_CLOSE_BAL,
+        c.R25_CLOSE_BAL                   AS R25_CLOSE_BAL,
         c.R25_OPEN_BAL - c.R18_OPEN_BAL   AS DIFF_OPEN_BAL,
         c.R25_DR_MVT - c.R18_DR_MVT       AS DIFF_DR_MVT,
         c.R25_CR_MVT - c.R18_CR_MVT       AS DIFF_CR_MVT,
         c.R25_CLOSE_BAL - c.R18_CLOSE_BAL AS DIFF_CLOSE_BAL
     FROM (
         SELECT
-            COALESCE(r18.RECID, r25.RECID)           AS RECID,
-            COALESCE(r18.ASSET_TYPE, r25.ASSET_TYPE) AS ASSET_TYPE,
+            COALESCE(r18.RECID, r25.RECID)                                      AS RECID,
+            COALESCE(r18.ASSET_TYPE, r25.ASSET_TYPE)                            AS ASSET_TYPE,
             CASE
                 WHEN r18.RECID IS NULL THEN 'R18'
                 WHEN r25.RECID IS NULL THEN 'R25'
@@ -247,16 +247,16 @@ BEGIN
                        AND (r25.RECID IS NULL OR r25.CURRENCY = 'VND')
                  THEN 1 ELSE 0
             END AS DIFF_THRESHOLD,
-            r18.CURRENCY               AS R18_CURRENCY,
-            r25.CURRENCY               AS R25_CURRENCY,
-            r18.APPLICATION            AS R18_APPLICATION,
-            r25.APPLICATION            AS R25_APPLICATION,
-            r18.CUSTOMER               AS R18_CUSTOMER,
-            r25.CUSTOMER               AS R25_CUSTOMER,
-            r18.DATE_LAST_UPDATE       AS R18_DATE_LAST_UPDATE,
-            r25.DATE_LAST_UPDATE       AS R25_DATE_LAST_UPDATE,
-            r18.HVT_FLAG               AS R18_HVT_FLAG,
-            r25.HVT_FLAG               AS R25_HVT_FLAG,
+            r18.CURRENCY                                                        AS R18_CURRENCY,
+            r25.CURRENCY                                                        AS R25_CURRENCY,
+            r18.APPLICATION                                                     AS R18_APPLICATION,
+            r25.APPLICATION                                                     AS R25_APPLICATION,
+            r18.CUSTOMER                                                        AS R18_CUSTOMER,
+            r25.CUSTOMER                                                        AS R25_CUSTOMER,
+            r18.DATE_LAST_UPDATE                                                AS R18_DATE_LAST_UPDATE,
+            r25.DATE_LAST_UPDATE                                                AS R25_DATE_LAST_UPDATE,
+            r18.HVT_FLAG                                                        AS R18_HVT_FLAG,
+            r25.HVT_FLAG                                                        AS R25_HVT_FLAG,
             CASE WHEN r18.RECID IS NULL OR r25.RECID IS NULL
                  THEN NVL(r18.OPEN_BAL, 0)
                  ELSE r18.OPEN_BAL
