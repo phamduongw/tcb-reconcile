@@ -1,7 +1,7 @@
 SET 'auto.offset.reset' = 'earliest';
 SET 'ksql.streams.num.stream.threads' = '8';
 
--- Run once per cluster if schema discovery/registration is required (DC: DD/RHS; DR: DDDR).
+-- Run once per cluster if schema discovery/registration is required (DC: DDAY/RHS; DR: DDAYDR).
 -- Business streams use fixed schema ID 6257 on DC and 6232 on DR, not these parsed streams directly.
 -- Do not recreate this branch between groups on the same cluster; verify the target registry ID.
 -- Source/parsed topic names are shared within each cluster, not prefixed per business group.
